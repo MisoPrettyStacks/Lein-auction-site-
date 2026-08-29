@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LienVault — U.S. Tax Lien & Real Estate Auction Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0f;--paper:#f5f2eb;--amber:#d4820a;--amber-light:#f0a830;--amber-pale:#fdf3dc;--rust:#b84a1a;--steel:#1a2535;--mist:#e8e4da;--fog:#c8c2b4;--white:#fff;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--display:'Bebas Neue',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#ffffff;color:#0a0a0f;font-family:var(--sans);min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;border-bottom:2px solid rgba(212,130,10,.3);position:sticky;top:0;background:#ffffff;z-index:50}
+.nav-logo{font-family:var(--display);font-size:28px;letter-spacing:3px;color:var(--amber-light)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-link{font-family:var(--mono);font-size:11px;color:#444;text-decoration:none;text-transform:uppercase;letter-spacing:1px;transition:color .2s}
+.nav-link:hover{color:var(--amber-light)}
+.nav-cta{background:var(--amber);color:var(--white);padding:10px 24px;border-radius:6px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--rust)}
+.hero{padding:100px 48px 80px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--amber);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.hero-dot{width:6px;height:6px;background:var(--amber-light);border-radius:50%;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:var(--display);font-size:clamp(52px,6vw,80px);letter-spacing:3px;line-height:1;margin-bottom:24px}
+h1 span{color:var(--amber-light)}
+.hero-sub{font-size:17px;color:#333;line-height:1.7;margin-bottom:40px}
+.hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:var(--white);padding:16px 36px;border-radius:8px;font-family:var(--display);font-size:20px;letter-spacing:2px;text-decoration:none;transition:all .2s;box-shadow:0 4px 20px rgba(212,130,10,.3)}
+.btn-primary:hover{background:var(--rust);transform:translateY(-2px)}
+.btn-secondary{font-family:var(--mono);font-size:12px;color:var(--fog);text-decoration:none;letter-spacing:1px;text-transform:uppercase;padding:16px 20px;border:1px solid rgba(255,255,255,.15);border-radius:8px;transition:all .2s}
+.btn-secondary:hover{border-color:var(--amber);color:var(--amber-light)}
+.hero-note{font-family:var(--mono);font-size:11px;color:#666;margin-top:16px}
+.price-card{background:#f9f6f0;border:1px solid rgba(212,130,10,.5);border-radius:16px;padding:40px;position:relative;overflow:hidden}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--amber-light))}
+.price-badge{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:2px;background:rgba(212,130,10,.2);border:1px solid var(--amber);color:var(--amber-light);padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:20px}
+.price-name{font-family:var(--display);font-size:28px;letter-spacing:2px;margin-bottom:8px}
+.price-amount{display:flex;align-items:baseline;gap:4px;margin-bottom:6px}
+.price-dollar{font-family:var(--display);font-size:52px;color:var(--amber-light)}
+.price-period{font-family:var(--mono);font-size:13px;color:var(--fog)}
+.price-desc{font-size:13px;color:#555;margin-bottom:28px;line-height:1.6}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.feature-item{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:#222;line-height:1.4}
+.feature-check{color:var(--amber-light);font-size:16px;flex-shrink:0}
+.price-cta{display:block;text-align:center;background:var(--amber);color:var(--white);padding:16px;border-radius:8px;font-family:var(--display);font-size:20px;letter-spacing:2px;text-decoration:none;transition:all .2s}
+.price-cta:hover{background:var(--rust)}
+.price-guarantee{text-align:center;font-family:var(--mono);font-size:10px;color:#777;margin-top:12px;text-transform:uppercase;letter-spacing:1px}
+.stats-bar{background:#f5f2eb;border-top:1px solid #ddd;border-bottom:1px solid #ddd;padding:32px 48px}
+.stats-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:24px}
+.stat-item{text-align:center}
+.stat-num{font-family:var(--display);font-size:42px;color:var(--amber-light);letter-spacing:2px;line-height:1}
+.stat-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#666;margin-top:4px}
+.features{padding:80px 48px;max-width:1200px;margin:0 auto}
+.section-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:3px;color:var(--amber);margin-bottom:16px}
+.section-title{font-family:var(--display);font-size:clamp(32px,4vw,48px);letter-spacing:2px;margin-bottom:48px}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.feature-card{background:#f9f6f0;border:1px solid #ddd;border-radius:12px;padding:28px;transition:border-color .2s,background .2s}
+.feature-card:hover{border-color:rgba(212,130,10,.4);background:rgba(212,130,10,.05)}
+.feature-icon{font-size:28px;margin-bottom:16px}
+.feature-title{font-family:var(--display);font-size:20px;letter-spacing:1px;margin-bottom:8px}
+.feature-desc{font-size:13px;color:#555;line-height:1.6}
+.how{background:#f5f2eb;padding:80px 48px;border-top:1px solid #ddd}
+.how-inner{max-width:1200px;margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:48px}
+.step{text-align:center}
+.step-num{font-family:var(--display);font-size:64px;color:rgba(212,130,10,.25);line-height:1;margin-bottom:12px}
+.step-title{font-family:var(--display);font-size:20px;letter-spacing:1px;margin-bottom:8px}
+.step-desc{font-size:13px;color:#555;line-height:1.6}
+.cta-band{padding:80px 48px;text-align:center;max-width:700px;margin:0 auto}
+.cta-band h2{font-family:var(--display);font-size:clamp(36px,5vw,56px);letter-spacing:3px;margin-bottom:16px}
+.cta-band p{font-size:16px;color:#444;margin-bottom:40px;line-height:1.6}
+footer{background:#f5f2eb;border-top:1px solid #ddd;padding:28px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:var(--display);font-size:20px;letter-spacing:2px;color:var(--amber)}
+.footer-note{font-family:var(--mono);font-size:10px;color:#777;text-transform:uppercase;letter-spacing:1px}
+.error-banner{background:rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.4);border-radius:8px;padding:12px 20px;font-family:var(--mono);font-size:12px;color:#f87171;margin:20px auto;text-align:center;max-width:600px}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding:60px 24px;gap:48px}.steps{grid-template-columns:1fr}nav,.features,.how,.cta-band,.stats-bar{padding-left:24px;padding-right:24px}footer{padding:24px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">LIENVAULT</div>
+  <div class="nav-right">
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#how" class="nav-link">How It Works</a>
+    <a href="#subscribe" class="nav-cta">Subscribe Now</a>
+  </div>
+</nav>
+
+<div id="error-container" style="padding:0 48px"></div>
+
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow"><div class="hero-dot"></div> Live Auction Data · All 50 States</div>
+    <h1>FIND EVERY<br><span>TAX LIEN</span><br>AUCTION IN<br>AMERICA</h1>
+    <p class="hero-sub">Search, sort, and track hundreds of public tax lien certificates, tax deed sales, foreclosures, and sheriff sales across the U.S. — updated regularly.</p>
+    <div class="hero-actions">
+      <a href="#subscribe" class="btn-primary">🏛 Get Full Access</a>
+      <a href="#features" class="btn-secondary">See What's Inside →</a>
+    </div>
+    <div class="hero-note">One flat monthly price · Cancel anytime · Instant email access after payment</div>
+  </div>
+
+  <div class="price-card" id="subscribe">
+    <div class="price-badge">Monthly Subscription</div>
+    <div class="price-name">INVESTOR ACCESS</div>
+    <div class="price-amount"><div class="price-dollar">$49</div><div class="price-period">/month</div></div>
+    <div class="price-desc">Hundreds of public tax lien auctions, one place, one price. Cancel anytime from your Gumroad dashboard.</div>
+    <ul class="feature-list">
+      <li class="feature-item"><span class="feature-check">✓</span> Live data from Bid4Assets, GovEase, RealAuction, CivicSource & more</li>
+      <li class="feature-item"><span class="feature-check">✓</span> Publicly sourced auctions across hundreds of U.S. counties</li>
+      <li class="feature-item"><span class="feature-check">✓</span> Filter by state, type, reserve, price & date</li>
+      <li class="feature-item"><span class="feature-check">✓</span> Tax liens, tax deeds, foreclosures, sheriff sales, REO</li>
+      <li class="feature-item"><span class="feature-check">✓</span> Auto-refreshes every 15 minutes</li>
+      <li class="feature-item"><span class="feature-check">✓</span> Direct links to every county auction portal</li>
+      <li class="feature-item"><span class="feature-check">✓</span> Instant access via email link — no password needed</li>
+    </ul>
+    <a href="REPLACE_WITH_YOUR_GUMROAD_LINK" class="price-cta" id="gumroad-link">SUBSCRIBE ON GUMROAD →</a>
+    <div class="price-guarantee">🔒 Secure checkout via Gumroad · Cancel anytime</div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">50</div><div class="stat-label">States Covered</div></div>
+    <div class="stat-item"><div class="stat-num">100s</div><div class="stat-label">Counties Covered</div></div>
+    <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Live Platforms</div></div>
+    <div class="stat-item"><div class="stat-num">15m</div><div class="stat-label">Refresh Rate</div></div>
+    <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Auction Types</div></div>
+  </div>
+</div>
+
+<div class="features" id="features">
+  <div class="section-label">What You Get</div>
+  <div class="section-title">EVERYTHING AN INVESTOR NEEDS</div>
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title">LIVE DATA</div><div class="feature-desc">Scraped directly from all major platforms every 15 minutes. Always current, always accurate.</div></div>
+    <div class="feature-card"><div class="feature-icon">🗺</div><div class="feature-title">MULTI-STATE COVERAGE</div><div class="feature-desc">Hundreds of publicly listed auctions across numerous states. Direct links to county portals for additional research.</div></div>
+    <div class="feature-card"><div class="feature-icon">🔍</div><div class="feature-title">SMART FILTERS</div><div class="feature-desc">Filter by auction type, reserve status, opening bid, auction date, and property type.</div></div>
+    <div class="feature-card"><div class="feature-icon">📋</div><div class="feature-title">5 AUCTION TYPES</div><div class="feature-desc">Tax liens, tax deeds, foreclosures, sheriff sales, and government REO — one searchable database.</div></div>
+    <div class="feature-card"><div class="feature-icon">🏛</div><div class="feature-title">COUNTY DIRECTORY</div><div class="feature-desc">Direct links to all 50 state portals for counties that run their own auction systems.</div></div>
+    <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">NO RESERVE FILTER</div><div class="feature-desc">Instantly find No Reserve auctions — the highest-potential deals with no minimum price floor.</div></div>
+  </div>
+</div>
+
+<div class="how" id="how">
+  <div class="how-inner">
+    <div class="section-label">Get Started</div>
+    <div class="section-title">UP AND RUNNING IN 3 STEPS</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><div class="step-title">SUBSCRIBE ON GUMROAD</div><div class="step-desc">Click above. Complete your monthly subscription on Gumroad. Takes 60 seconds.</div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-title">CHECK YOUR EMAIL</div><div class="step-desc">Instantly receive your personal access link. No username or password to remember — ever.</div></div>
+      <div class="step"><div class="step-num">03</div><div class="step-title">START FINDING DEALS</div><div class="step-desc">Click your link and you're inside. Search live auctions, set filters, bookmark your link.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-band">
+  <h2>READY TO FIND YOUR NEXT DEAL?</h2>
+  <p>Join real estate investors using LienVault to track hundreds of public tax lien and deed auctions across the country.</p>
+  <a href="REPLACE_WITH_YOUR_GUMROAD_LINK" class="btn-primary">🏛 Subscribe Now — $49/month</a>
+</div>
+
+<footer>
+  <div class="footer-logo">LIENVAULT</div>
+  <div class="footer-note">Data for informational purposes only · Verify all auction details before bidding</div>
+</footer>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const err = params.get('error');
+if (err) {
+  const msgs = { invalid_link:'This access link is invalid or has expired. Please check your email or contact support.', access_revoked:'Your subscription has been cancelled. Please resubscribe via Gumroad.' };
+  document.getElementById('error-container').innerHTML = `<div class="error-banner">⚠️ ${msgs[err]||'Access error. Please try again.'}</div>`;
+}
+fetch('/api/auth/status').then(r=>r.json()).then(d=>{ if(d.authenticated) window.location.href='/app'; }).catch(()=>{});
+</script>
+</body>
+</html>
