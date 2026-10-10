@@ -1,0 +1,9 @@
+# Render Blueprint — one free static site hosting the Lein auction site
+# (LienVault). Single self-contained page (index.html): no build step,
+# no backend, no environment variables.
+services:
+  - type: web
+    name: lein-auction-site
+    runtime: static
+    buildCommand: echo "static site - no build step"
+    staticPublishPath: .
